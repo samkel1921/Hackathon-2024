@@ -1,23 +1,48 @@
-import logo from './logo.svg';
+import * as React from 'react';
+import { useState } from 'react';
+import Tasks from './Tasks';
 import './App.css';
 
 function App() {
+  const [desc, setDesc] = useState('');
+
+  const [tasks, setTasks] = useState([]);
+  
+  const [nextId, setNextId] = useState(0);
+  const handleClick = () => {
+    setTasks([
+      ...tasks,
+      {id: nextId, desc: desc}
+    ]);
+    setNextId(
+      nextId + 1
+    )
+  };
+
+  const handleDelete = (id) => {
+    setTasks(
+      tasks.filter(a =>
+        a.id !== id)
+    )
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        RememBrain
       </header>
+      <Tasks task_list={tasks} act={handleDelete}/>
+      <div className='button'>
+        <input 
+        value ={desc}
+        onChange={e => setDesc(e.target.value)}
+        />
+        <button
+          className='updater'
+          onClick={handleClick}>
+          Add task
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,9 @@
+body {
+    flex-direction: row;
+}
+h2 {
+    color:white;
+    display:flex;
+    justify-content: center;
+    flex-direction: row;
+}
